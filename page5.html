@@ -122,14 +122,9 @@
     <script type="module">
         // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-<<<<<<< HEAD
         import { getFirestore, collection, query, getDocs, where, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
     
-=======
-        import { getFirestore, doc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
->>>>>>> 29423f3faa557b5438384ef473226b159c3e6007
         // Firebase 설정
         const firebaseConfig = {
             apiKey: "AIzaSyCptMKJA8PpicVg_2CEUMOabzkKZh0TSO8",
@@ -155,11 +150,7 @@
                 const member = doc.data();
                 const memberDiv = document.createElement("div");
                 memberDiv.classList.add("member");
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 29423f3faa557b5438384ef473226b159c3e6007
                 // 체크박스와 함께 멤버 이름을 표시
                 memberDiv.innerHTML = ` 
                     <input type="checkbox" class="delete-checkbox" data-id="${doc.id}">
@@ -169,11 +160,7 @@
                 memberListContainer.appendChild(memberDiv);
             });
         };
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 29423f3faa557b5438384ef473226b159c3e6007
         // 선택된 멤버 삭제
         async function deleteSelectedMembers() {
             const selectedCheckboxes = document.querySelectorAll(".delete-checkbox:checked");
@@ -181,19 +168,11 @@
                 alert("삭제할 멤버를 선택해주세요.");
                 return;
             }
-<<<<<<< HEAD
     
             // 삭제 확인
             const confirmDelete = confirm("선택한 멤버를 삭제하시겠습니까?");
             if (!confirmDelete) return;
     
-=======
-
-            // 삭제 확인
-            const confirmDelete = confirm("선택한 멤버를 삭제하시겠습니까?");
-            if (!confirmDelete) return;
-
->>>>>>> 29423f3faa557b5438384ef473226b159c3e6007
             selectedCheckboxes.forEach(async (checkbox) => {
                 const docId = checkbox.getAttribute("data-id");
                 // Firestore에서 데이터 삭제
@@ -202,11 +181,7 @@
                 checkbox.closest(".member").remove();
             });
         }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 29423f3faa557b5438384ef473226b159c3e6007
         // 삭제 버튼 클릭 시 삭제 실행
         document.querySelector("button").addEventListener("click", deleteSelectedMembers);
     </script>
