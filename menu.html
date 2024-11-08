@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap');
+
+        /* 기본 스타일 */
+        body {
+            font-family: "Gowun Dodum", sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            /* 화면 전체 높이를 사용 */
+            display: flex;
+            /* flexbox 사용 */
+            justify-content: center;
+            /* 가로 중앙 정렬 */
+            align-items: center;
+            /* 세로 중앙 정렬 */
+            flex-direction: column;
+           
+
+        }
+
+        /* 네비게이션 바 스타일 */
+        nav {
+            background: linear-gradient(to right,#ff7f7f, #dc3545);
+            /* 배경색 */
+            overflow: hidden;
+            /* 내용이 넘칠 때 처리 */
+            width: 100%;
+            position: fixed;
+            top: 0;
+            font-size: 28px;
+            /* 상단에 위치 */
+        }
+
+        nav a {
+            font-family: "Black Han Sans", sans-serif;
+            display:  flex;
+            /* 블록으로 만들기 */
+            color: white;
+            /* 텍스트 색상 */
+            text-align: center;
+            /* 텍스트 가운데 정렬 */
+            padding: 14px 20px;
+            /* 패딩 */
+            text-decoration: none;
+            /* 링크 밑줄 제거 */
+            margin-left: 50px;
+        }
+
+        nav img {
+            width: 30px;
+            /* 이미지 크기 조정 */
+            height: 30px;
+            /* 이미지 크기 조정 */
+            margin-left: 10px;
+            margin-right: 10px;
+            /* 텍스트와 이미지 간 간격 */
+        }
+
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            /* 버튼들이 줄 바꿈되도록 설정 */
+            justify-content: space-between;
+            /* 버튼 간의 간격을 일정하게 */
+            gap: 20px;
+            /* 버튼 간 간격 설정 */
+            width: 100%;
+            max-width: 640px;
+            /* 최대 너비 설정 (두 개의 버튼이 나열되도록) */
+        }
+
+        .form {
+            width: 300px;
+            /* 각 버튼의 고정 너비 */
+            height: 150px;
+            background-color: #dc3545;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 20px;
+            font-size: 34px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <nav>
+        <nav>
+            <a href="mainpage.html"> <img
+                    src="https://cdn-upload.miniintern.com/42581/3091d6df-ce33-498d-a1cb-32b0d5473655/teamspartalogomain.png"
+                    alt="이모티콘" class="emoji"> 스파르타위키</a>
+        </nav>
+    </nav>
+    <div class="form-container">
+        <a href="page3.html"><button type="button" class="btn btn-danger form">등록하기</button></a>
+        <!--버튼을 누르면 3번째 페이지로 넘어갑니다-->
+        <a href="page4.html"><button type="button" class="btn btn-danger form">수정하기</button></a>
+        <!--버튼을 누르면 4번째 페이지로 넘어갑니다-->
+        <a href="page5.html"><button type="button" class="btn btn-danger form">삭제하기</button></a>
+        <!--버튼을 누르면 5번째 페이지로 넘어갑니다-->
+        <a href="page6.html"><button type="button" class="btn btn-danger form">조회하기</button></a>
+        <!--버튼을 누르면 6번째 페이지로 넘어갑니다-->
+    </div>
+</body>
+
+</html>

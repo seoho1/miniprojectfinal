@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pg3</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background: linear-gradient(to right, #ff7f7f, #dc3545);
+            /* 배경색 */
+            overflow: hidden;
+            /* 내용이 넘칠 때 처리 */
+            width: 100%;
+            position: fixed;
+            top: 0;
+            font-size: 20px;
+            /* 상단에 위치 */
+        }
+
+        nav a {
+            font-family: "Black Han Sans", sans-serif;
+            display: flex;
+            /* 블록으로 만들기 */
+            color: white;
+            /* 텍스트 색상 */
+            text-align: center;
+            /* 텍스트 가운데 정렬 */
+            padding: 14px 20px;
+            /* 패딩 */
+            text-decoration: none;
+            /* 링크 밑줄 제거 */
+            margin-left: 50px;
+        }
+
+        nav img {
+            width: 30px;
+            /* 이미지 크기 조정 */
+            height: 30px;
+            /* 이미지 크기 조정 */
+            margin-left: 10px;
+            margin-right: 10px;
+            /* 텍스트와 이미지 간 간격 */
+        }
+
+        .mypostingboxs {
+
+            width: 500px;
+            margin: 100px auto 20px auto;
+            padding: 20px;
+            box-shadow: 0px 0px 3px 0px #dc3545;
+            border-radius: 5px;
+        }
+
+        .mybtn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mybtn>button {
+            margin-right: 5px;
+        }
+
+        .thumbnail {
+            margin-bottom: 20px;
+        }
+
+        .img-preview {
+            margin-top: 20px;
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: cover;
+        }
+    </style>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCptMKJA8PpicVg_2CEUMOabzkKZh0TSO8",
+            authDomain: "sparta-4c7c8.firebaseapp.com",
+            projectId: "sparta-4c7c8",
+            storageBucket: "sparta-4c7c8.firebasestorage.app",
+            messagingSenderId: "862085335374",
+            appId: "1:862085335374:web:8fdb68b78914892552f61f",
+            measurementId: "G-NF8D0H7X6C"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        $("#postbtn").click(async function () {
+            let name = $('#name').val();
+            let age = $('#age').val();
+            let gender = $('#gender').val();
+            let hobby = $('#hobby').val();
+            let speciality = $('#speciality').val();
+            let tmi = $('#tmi').val();
+
+            // 파일이 선택되었는지 확인
+            let fileInput = $('#image')[0];
+            if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+                alert('사진을 선택하세요');
+                return;
+            }
+
+            let file = fileInput.files[0];  // 첫 번째 파일 가져오기
+
+            // 이미지 업로드 함수
+            const uploadImage = (file) => {
+                return new Promise((resolve, reject) => {
+                    const storageRef = ref(storage, 'images/' + file.name);
+
+                    uploadBytes(storageRef, file).then((snapshot) => {
+                        getDownloadURL(snapshot.ref).then((url) => {
+                            resolve(url);
+                        }).catch(reject);
+                    }).catch(reject);
+                });
+            };
+
+            try {
+                const imageUrl = await uploadImage(file);
+
+                // Firebase에 저장할 데이터 객체
+                const doc = {
+                    'name': name,  // name에 고유 id 값 대신 name을 넣는게 맞을 수 있음
+                    'age': age,
+                    'gender': gender,
+                    'hobby': hobby,
+                    'speciality': speciality,
+                    'tmi': tmi,
+                    'imageUrl': imageUrl
+                };
+
+                // Firestore에 문서 추가
+                await addDoc(collection(db, "impomation"), doc);
+
+                alert('등록완료');
+                window.location.reload();
+            } catch (error) {
+                console.error("Error uploading image or saving data:", error);
+                alert('업로드 또는 데이터 저장 중 오류가 발생했습니다.');
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1></h1>
+    </header>
+    <nav>
+        <nav>
+            <a href="mainpage.html"> <img
+                    src="https://cdn-upload.miniintern.com/42581/3091d6df-ce33-498d-a1cb-32b0d5473655/teamspartalogomain.png"
+                    alt="이모티콘" class="emoji"> 스파르타위키</a>
+        </nav>
+    </nav>
+    <div class="mypostingboxs" id="postingbox">
+        <div class="mb-3">
+            <label for="formFile" class="form-label">사진을 선택하세요</label>
+            <input class="form-control" type="file" id="image">
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="name" placeholder="이름">
+            <label for="name">이름</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="age" placeholder="나이">
+            <label for="age">나이</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="gender" placeholder="성별">
+            <label for="gender">성별</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="hobby" placeholder="취미">
+            <label for="hobby">취미</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="speciality" placeholder="특기">
+            <label for="speciality">특기</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="tmi" placeholder="특기">
+            <label for="tmi">TMI</label>
+        </div>
+        <div class="mybtn">
+            <button id="postbtn" type="button" class="btn btn-danger">등록하기</button>
+        </div>
+    </div>
+</body>
+
+</html>
